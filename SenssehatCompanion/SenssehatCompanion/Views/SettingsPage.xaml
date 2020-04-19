@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SenssehatCompanion.Views.SettingsPage"
+             Title="Ustawienia">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Label Text="Połączenie" FontSize="Title" TextColor="Black" Margin="0,0,0,10"/>
+            <Label Text="IP serwera"/>
+            <FlexLayout>
+                <Entry  Placeholder="{Binding ServerIP}" Text="{Binding ServerIP}" Margin="0,0,0,10" WidthRequest="250"/>
+                <Label Text=":" FontSize="Large" FontAttributes="Bold" Margin="10,15,10,10"/>
+                <Entry Placeholder="{Binding Port}" Text="{Binding Port}" Margin="0,10,0,10" WidthRequest="90" HorizontalOptions="End"/>
+            </FlexLayout>
+            
+            <Label Text="Dane pomiarowe" FontSize="Title" TextColor="Black" Margin="0,0,0,10"/>
+            <Label Text="Okres próbkowania"/>
+            <FlexLayout>
+                <Entry Placeholder="{Binding Interval}" Text="{Binding Interval}" Margin="0,0,0,10" WidthRequest="310"/>
+                <Label Text="ms" FontSize="Large" FontAttributes="Bold" Margin="10,15,10,10"/>
+            </FlexLayout>
+            <Label Text="Liczba zapamiętanych próbek"/>
+            <Entry Placeholder="{Binding NumSamples}" Text="{Binding NumSamples}" Margin="0,0,0,10" WidthRequest="250"/>
+            <Button Clicked="Button_Clicked" Text="Zapisz" VerticalOptions="EndAndExpand" BackgroundColor="#6200ee" TextColor="White"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

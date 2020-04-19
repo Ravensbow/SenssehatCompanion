@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:views="clr-namespace:SenssehatCompanion.Views.PrzebiegiCzasoweTabItems"
+             x:Class="SenssehatCompanion.Views.PrzebiegiCzasowePage"
+             BarBackgroundColor="#A06DF8"
+             BarTextColor="#48306F"
+             SelectedTabColor="#8953e8"
+             Title="Przebiegi czasowe">
+  <!--Pages can be added as references or inline-->
+    
+    <views:Temperatura Title="Temperatura" />
+  
+    <views:Wilgotnosc Title="Wilgotność"/>
+    
+    <views:Cisnienie Title="Ciśnienie"/>
+    
+    <views:Katy Title="Kąty RPY"/>
+    <!--<ContentPage Title="Ciśnienie" />
+  <ContentPage Title="Wilgotność" />
+  <ContentPage Title="Kąty RPY" />-->
+</TabbedPage> 

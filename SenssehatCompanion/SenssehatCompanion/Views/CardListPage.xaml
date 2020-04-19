@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SenssehatCompanion.Views.CardListPage"
+             Title="SensschatCompanion">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="settings.png" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView Padding="10,10,10,10">
+            <StackLayout>
+                <StackLayout Padding="0"
+                             HorizontalOptions="FillAndExpand"
+                             BackgroundColor="#EFF2F7">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnDanePomiarowe"/>
+                    </StackLayout.GestureRecognizers>
+                    <AbsoluteLayout VerticalOptions="FillAndExpand">
+                        <BoxView Color="#C0CCDA"
+                                 HeightRequest="150"
+                                 HorizontalOptions="Fill"
+                                 AbsoluteLayout.LayoutBounds="0,0,500,150"/>
+                        <Image Source="ruler.png" HeightRequest="130" BackgroundColor="#C0CCDA" AbsoluteLayout.LayoutBounds="0.5,0.5" AbsoluteLayout.LayoutFlags="PositionProportional" />
+                    </AbsoluteLayout>
+                    <Label 
+                    Text="Dane pomiarowe"
+                    FontSize="Title"
+                    Padding="20,0,0,0"
+                    TextColor="Black"/>
+                    <Label
+                    Padding="20,0,20,20"
+                    Text="Temperatura, ciśninie, wilgotność,położenie joysticka, kąty RPY"
+                    TextColor="Gray"/>
+                </StackLayout>
+                <StackLayout Padding="0"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="#EFF2F7">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPrzebiegiCzasowe"/>
+                    </StackLayout.GestureRecognizers>
+                    <AbsoluteLayout VerticalOptions="FillAndExpand">
+                        <BoxView Color="#C0CCDA"
+                                 HeightRequest="150"
+                                 HorizontalOptions="Fill"
+                                 AbsoluteLayout.LayoutBounds="0,0,500,150"/>
+                        <Image Source="line_chart.png" HeightRequest="130" BackgroundColor="#C0CCDA" AbsoluteLayout.LayoutBounds="0.5,0.5" AbsoluteLayout.LayoutFlags="PositionProportional" />
+                    </AbsoluteLayout>
+                    <Label 
+                    Text="Przebiegi czasowe"
+                    FontSize="Title"
+                    Padding="20,0,0,0"
+                    TextColor="Black"/>
+                    <Label
+                    Padding="20,0,20,20"
+                    Text="Temperatura, ciśninie, wilgotność, kąty RPY"
+                    TextColor="Gray"/>
+                </StackLayout>
+                <StackLayout Padding="0"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="#EFF2F7">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnJoystick"/>
+                    </StackLayout.GestureRecognizers>
+                    <AbsoluteLayout VerticalOptions="FillAndExpand">
+                        <BoxView Color="#C0CCDA"
+                                 HeightRequest="150"
+                                 HorizontalOptions="Fill"
+                                 AbsoluteLayout.LayoutBounds="0,0,500,150"/>
+                        <Image Source="joystick.png" HeightRequest="130" BackgroundColor="#C0CCDA" AbsoluteLayout.LayoutBounds="0.5,0.5" AbsoluteLayout.LayoutFlags="PositionProportional" />
+                    </AbsoluteLayout>
+                    <Label 
+                    Text="Stan Joysticka"
+                    FontSize="Title"
+                    Padding="20,0,0,0"
+                    TextColor="Black"/>
+                    <Label
+                    Padding="20,0,20,20"
+                    Text="Stan joysticka w płaszczyźnie XY"
+                    TextColor="Gray"/>
+                </StackLayout>
+                <StackLayout Padding="0"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="#EFF2F7">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLED"/>
+                    </StackLayout.GestureRecognizers>
+                    <AbsoluteLayout VerticalOptions="FillAndExpand">
+                        <BoxView Color="#C0CCDA"
+                                 HeightRequest="150"
+                                 HorizontalOptions="Fill"
+                                 AbsoluteLayout.LayoutBounds="0,0,500,150"/>
+                        <Image Source="led_lighting.png" HeightRequest="130" BackgroundColor="#C0CCDA" AbsoluteLayout.LayoutBounds="0.5,0.5" AbsoluteLayout.LayoutFlags="PositionProportional" />
+                    </AbsoluteLayout>
+                    <Label 
+                    Text="Panel LED"
+                    FontSize="Title"
+                    Padding="20,0,0,0"
+                    TextColor="Black"/>
+                    <Label
+                    Padding="20,0,20,20"
+                    Text="Zarządzanie panelem LED"
+                    TextColor="Gray"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
