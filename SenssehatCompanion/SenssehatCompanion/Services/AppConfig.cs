@@ -13,9 +13,9 @@ namespace SenssehatCompanion.Services
         public AppConfig()
         {
             Settings = new Settings();
-            Settings.ServerIP = "192.168.0.19";
-            Settings.Port = 101000;
-            Settings.NumSamples = 100;
+            Settings.ServerIP = "192.168.1.116";
+            Settings.Port = 49341;
+            Settings.NumSamples = 10;
             Settings.Interval = 100;
         }
         public async Task<bool> ChangeConfig(Settings s)

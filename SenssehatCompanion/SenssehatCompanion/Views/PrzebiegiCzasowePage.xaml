@@ -12,7 +12,7 @@
              Title="Przebiegi czasowe">
   <!--Pages can be added as references or inline-->
     
-    <views:Temperatura Title="Temperatura" />
+    <views:TemperaturaPage Title="Temperatura" />
   
     <views:Wilgotnosc Title="Wilgotność"/>
     

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SenssehatCompanion.Services
 {
-    interface IDataMeasure
+    public interface IDataMeasure
     {
         Task<Temperatura> GetTemperatureAsync(string unit);
+        Temperatura GetTemperaturaFake(string unit);
     }
 }

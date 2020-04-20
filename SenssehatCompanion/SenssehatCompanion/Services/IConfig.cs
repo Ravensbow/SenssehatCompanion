@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SenssehatCompanion.Services
 {
-    interface IConfig
+    public interface IConfig
     {
         Task<bool> ChangeConfig(Settings s);
         Task<Settings> GetConfig();

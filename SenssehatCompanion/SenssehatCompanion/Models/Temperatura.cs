@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SenssehatCompanion.Models
 {
-    class Temperatura
+    public class Temperatura
     {
         public double Value { get; set; }
         public char Unit { get; set; }

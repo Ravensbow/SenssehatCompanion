@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:ultimateChart="clr-namespace:UltimateXF.Widget.Charts;assembly=UltimateXF"
-             x:Class="SenssehatCompanion.Views.PrzebiegiCzasoweTabItems.Temperatura"
+             x:Class="SenssehatCompanion.Views.PrzebiegiCzasoweTabItems.TemperaturaPage"
              BackgroundColor="White">
     <ContentPage.Content>
         <StackLayout>
