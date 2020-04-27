@@ -28,6 +28,7 @@ namespace SenssehatCompanion
             DependencyService.Register<AppConfig>();
             DependencyService.Register<DataMeasure>();
             DependencyService.Register<IMessage>();
+            DependencyService.Register<PanelLED>();
             MainPage =new NavigationPage( new CardListPage());
         }
 

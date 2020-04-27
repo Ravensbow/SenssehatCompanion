@@ -18,7 +18,7 @@ namespace SenssehatCompanion.Views
         public SettingsPage()
         {
             InitializeComponent();
-            Settings = DependencyService.Get<IConfig>().GetConfig().Result;
+            Settings = new Settings(DependencyService.Get<IConfig>().GetConfig().Result);
             BindingContext = Settings;
         }
 

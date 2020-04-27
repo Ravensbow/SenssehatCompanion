@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SenssehatCompanion.Views.LCDPage"
+             xmlns:behaviors="clr-namespace:App.Controls.Behaviors">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Margin="0,10,0,0"  x:Name="MainStack"></StackLayout>
+            <!--<FlexLayout x:Name="row1" Padding="10,10,10,0">
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="0,0,0,0" HeightRequest="40" WidthRequest="40"></Button>
+                <Button x:Name="r1c2" Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0">
+                    <Button.Behaviors>
+                        <behaviors:LongPressBehavior Obiekt="{x:Reference r1c2}" LongPressed="LongPressBehavior_LongPressed"/>
+                    </Button.Behaviors>
+                </Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+            </FlexLayout>
+            <FlexLayout x:Name="row2" Padding="10,0,10,0">
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="0,0,0,0" HeightRequest="40" WidthRequest="40"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+            </FlexLayout>
+            <FlexLayout x:Name="row3" Padding="10,0,10,0">
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="0,0,0,0" HeightRequest="40" WidthRequest="40"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+            </FlexLayout>
+            <FlexLayout x:Name="row4" Padding="10,0,10,0">
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="0,0,0,0" HeightRequest="40" WidthRequest="40"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+            </FlexLayout>
+            <FlexLayout x:Name="row5" Padding="10,0,10,0">
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="0,0,0,0" HeightRequest="40" WidthRequest="40"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+            </FlexLayout>
+            <FlexLayout x:Name="row6" Padding="10,0,10,0">
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="0,0,0,0" HeightRequest="40" WidthRequest="40"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+            </FlexLayout>
+            <FlexLayout x:Name="row7" Padding="10,0,10,0">
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="0,0,0,0" HeightRequest="40" WidthRequest="40"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+            </FlexLayout>
+            <FlexLayout x:Name="row8" Padding="10,0,10,5">
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="0,0,0,0" HeightRequest="40" WidthRequest="40"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+                <Button Clicked="Button_Clicked" BackgroundColor="Yellow" Margin="5,0,0,0"></Button>
+            </FlexLayout>-->
+
+            <BoxView x:Name="colorInfo" HorizontalOptions="Center" CornerRadius="100" HeightRequest="70" WidthRequest="70" Color="Black"></BoxView>
+            
+            <FlexLayout JustifyContent="SpaceAround">
+                <StackLayout>
+                    <Entry x:Name="entryRed" Keyboard="Numeric" Placeholder="255" HorizontalTextAlignment="Center" WidthRequest="60" TextChanged="Entry_TextChanged"></Entry>
+                    <BoxView Color="Red" HeightRequest="10"></BoxView>
+                </StackLayout>
+                <StackLayout>
+                    <Entry x:Name="entryGreen" Keyboard="Numeric" Placeholder="255" HorizontalTextAlignment="Center" WidthRequest="60" TextChanged="Entry_TextChanged"></Entry>
+                    <BoxView Color="Green" HeightRequest="10"></BoxView>
+                </StackLayout>
+                <StackLayout>
+                    <Entry x:Name="entryBlue" Keyboard="Numeric" Placeholder="255" HorizontalTextAlignment="Center" WidthRequest="60" TextChanged="Entry_TextChanged"></Entry>
+                    <BoxView Color="Blue" HeightRequest="10"></BoxView>
+                </StackLayout>
+            </FlexLayout>
+            <Button Clicked="Ustaw_Clicked" Text="Ustaw" VerticalOptions="EndAndExpand" BackgroundColor="#6200ee" TextColor="White" Margin="10,10,10,10"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

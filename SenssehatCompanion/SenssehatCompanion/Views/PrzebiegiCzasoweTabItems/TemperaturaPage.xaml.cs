@@ -29,6 +29,7 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         LineChartData data4;
         List<EntryChart> entries = new List<EntryChart>();
         private int time=0;
+        private bool ploting = false;
 
         public TemperaturaPage()
         {
@@ -59,15 +60,23 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         {
             timer = new System.Timers.Timer(settings.Interval);
             timer.Elapsed += OnTimedEvent;
-            timer.AutoReset = true;
+            timer.AutoReset = false;
             timer.Enabled = false;
         }
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-            Temperatura temp =  dataMeasure.GetTemperatureAsync("C").Result;
+            if (!ploting)
+                return;
+                //Temperatura temp =  dataMeasure.GetTemperatureAsync("C").Result;
+                //Temperatura temp =  dataMeasure.GetTemperaturaFake("C");
+            Temperatura temp = dataMeasure.GetTemperatureTCP("C");
+
             time += 1;
-            if(temp!=null)
+            if (temp != null)
                 UpdateChart(temp);
+            if (!ploting)
+                return;
+            timer.Enabled = true;
         }
 
         private void UpdateChart(Temperatura temp)
@@ -99,13 +108,18 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            if (timer.Enabled == true)
+            if (ploting==true)
             {
+                ploting = false;
                 timer.Stop();
+                timer.Dispose();
                 (sender as Button).Text="Start";
             }
+            
             else
             {
+                ploting = true;
+                setTimer();
                 timer.Start();
                 (sender as Button).Text = "Stop";
             } 

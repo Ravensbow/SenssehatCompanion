@@ -27,7 +27,7 @@ namespace SenssehatCompanion.Views
         }
         private async void OnDanePomiarowe(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SettingsPage());
+            await Navigation.PushAsync(new PomiaryPage());
         }
         private async void OnJoystick(object sender, EventArgs e)
         {
@@ -35,7 +35,7 @@ namespace SenssehatCompanion.Views
         }
         private async void OnLED(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SettingsPage());
+            await Navigation.PushAsync(new LCDPage());
         }
     }
 }
