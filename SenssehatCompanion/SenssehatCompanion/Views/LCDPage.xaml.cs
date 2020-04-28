@@ -16,6 +16,7 @@ namespace SenssehatCompanion.Views
     {
         List<Button> chosenLeds = new List<Button>();
         Dictionary<Tuple<int, int>, Button> panel = new Dictionary<Tuple<int, int>, Button>();
+        public string Gowno = "elo";
         public LCDPage()
         {
             InitializeComponent();
@@ -43,17 +44,17 @@ namespace SenssehatCompanion.Views
 
         private void InitializePanelLED()
         {
-            int[,] sensLEDs = DependencyService.Get<PanelLED>().GetLEDsState();
+            int[] sensLEDs = DependencyService.Get<PanelLED>().GetLEDsState().Result;
 
             for (int i = 0; i < 8; i++)
             {
                 var row = new FlexLayout() { Padding = new Thickness(10, 0, 10, 0) };
                 for (int j = 0; j < 8; j++)
                 {
-                    string test = "#" + sensLEDs[i, j].ToString("X6");
+                    string test = "#" + sensLEDs[i * 8 + j].ToString("X6");
                     var but = new Button()
                     {
-                        BackgroundColor = Color.FromHex("#"+sensLEDs[i,j].ToString("X6")),
+                        BackgroundColor = Color.FromHex("#"+sensLEDs[i * 8 + j].ToString("X6")),
                         Margin = new Thickness(5, 0, 0, 0)
                     };
                     but.Clicked += Button_Clicked;
@@ -124,15 +125,15 @@ namespace SenssehatCompanion.Views
             entryBlue.Text = (255 * colorInfo.Color.B).ToString();
         }
 
-        private void Ustaw_Clicked(object sender, EventArgs e)
+        private async Task Ustaw_Clicked(object sender, EventArgs e)
         {
             chosenLeds.ForEach(b => b.BackgroundColor = colorInfo.Color);
-            DependencyService.Get<PanelLED>().SetLEDs(buttonToArray());
+            await DependencyService.Get<PanelLED>().SetLEDs(buttonToArray());
         }
 
-        private int[,] buttonToArray()
+        private int[] buttonToArray()
         {
-            int[,] temp = new int[8, 8];
+            int[] temp = new int[64];
             for(int i =0;i<8; i++)
             {
                 for (int j = 0; j< 8; j++)
@@ -141,7 +142,7 @@ namespace SenssehatCompanion.Views
                     if (panel.TryGetValue(Tuple.Create(i, j), out b))
                     {
                         string s = b.BackgroundColor.ToHex().Replace("#","").Substring(2);
-                        temp[i, j] = int.Parse(s, System.Globalization.NumberStyles.HexNumber);
+                        temp[i * 8 + j] = int.Parse(s, System.Globalization.NumberStyles.HexNumber);
                     }
                 }
             }
