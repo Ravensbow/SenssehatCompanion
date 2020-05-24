@@ -16,29 +16,9 @@ namespace SenssehatCompanion.Views
     {
         List<Button> chosenLeds = new List<Button>();
         Dictionary<Tuple<int, int>, Button> panel = new Dictionary<Tuple<int, int>, Button>();
-        public string Gowno = "elo";
         public LCDPage()
         {
             InitializeComponent();
-            //for(int i =0;i<8;i++)
-            //{
-            //    var row = new FlexLayout() { Padding = new Thickness(10,0,10,0) };
-            //    for(int j=0;j<8;j++)
-            //    {
-            //        var but = new Button()
-            //        {
-            //            BackgroundColor = Color.Black,
-            //            Margin = new Thickness(5, 0, 0, 0)
-            //        };
-            //        but.Clicked += Button_Clicked;
-            //        var beh = new LongPressBehavior() { Obiekt = but };
-            //        beh.LongPressed += LongPressBehavior_LongPressed;
-            //        but.Behaviors.Add(beh);
-            //        panel.Add(Tuple.Create(i,j),but);
-            //        row.Children.Add(but);
-            //    }
-            //    MainStack.Children.Add(row);
-            //}
             InitializePanelLED();
         }
 

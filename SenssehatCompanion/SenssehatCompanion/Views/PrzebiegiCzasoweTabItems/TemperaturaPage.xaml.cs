@@ -67,8 +67,8 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         {
             if (!ploting)
                 return;
-                //Temperatura temp =  dataMeasure.GetTemperatureAsync("C").Result;
-                //Temperatura temp =  dataMeasure.GetTemperaturaFake("C");
+            //Temperatura temp =  dataMeasure.GetTemperatureAsync("C").Result;
+            //Temperatura temp =  dataMeasure.GetTemperaturaFake("C");
             Temperatura temp = dataMeasure.GetTemperatureTCP("C");
 
             time += 1;
