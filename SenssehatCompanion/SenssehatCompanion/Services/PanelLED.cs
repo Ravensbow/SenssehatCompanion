@@ -24,6 +24,7 @@ namespace SenssehatCompanion.Services
         {
             config = DependencyService.Get<IConfig>();
             client = new HttpClient();
+            client.Timeout = TimeSpan.FromSeconds(3);
             client.BaseAddress = new Uri($"{"http://" + config.GetURL()}/");
         }
 
@@ -38,8 +39,9 @@ namespace SenssehatCompanion.Services
             {
                 try
                 {
-                    var json = await client.GetStringAsync($"api/LED/GetLEDs");
-                    return await Task.Run(() => JsonConvert.DeserializeObject<int[]>(json));
+                    var json =  await client.GetStringAsync($"api/led.php");
+                    int[] data = await Task.Run(() => JsonConvert.DeserializeObject<int[]>(json));
+                    return data;
                 }
                 catch (WebException e)
                 {
@@ -49,9 +51,13 @@ namespace SenssehatCompanion.Services
                 {
                     DependencyService.Get<IMessage>().LongAlert(e.Message);
                 }
-                catch
+                catch (HttpRequestException e)
                 {
-                    DependencyService.Get<IMessage>().LongAlert("Nieznany wyjątek!");
+                    DependencyService.Get<IMessage>().LongAlert("Przekroczono limit połączenia!");
+                }
+                catch (Exception e)
+                {
+                    DependencyService.Get<IMessage>().LongAlert("Nieznany wyjątek!"+e.Message);
                 }
 
             }
@@ -65,8 +71,17 @@ namespace SenssehatCompanion.Services
             {
                 try
                 {
-                    var json = await client.GetStringAsync($"api/LED/SetLEDs?data={Newtonsoft.Json.JsonConvert.SerializeObject(leds)}");
-                    return await Task.Run(() => JsonConvert.DeserializeObject<bool>(json));
+                    //var json = await client.PostAsync($"api/led.php",new StringContent("leds="+Newtonsoft.Json.JsonConvert.SerializeObject(leds)));
+                    var json = Newtonsoft.Json.JsonConvert.SerializeObject(leds);
+                    var resoult = await client.PostAsync($"api/led.php", new FormUrlEncodedContent( 
+                        new Dictionary<string, string>()
+                        {
+                            {"leds",json}
+                        }
+                    ));
+                    if(!resoult.IsSuccessStatusCode)
+                        DependencyService.Get<IMessage>().LongAlert("Nie udało się wysłać panelu led.");
+                    return await Task.Run(() => JsonConvert.DeserializeObject<bool>("true"));
                 }
                 catch (WebException e)
                 {

@@ -13,8 +13,8 @@ namespace SenssehatCompanion.Services
         public AppConfig()
         {
             Settings = new Settings();
-            Settings.ServerIP = "192.168.1.116";
-            Settings.Port = 49341;
+            Settings.ServerIP = "192.168.0.116";
+            Settings.Port = 80;
             Settings.NumSamples = 10;
             Settings.Interval = 100;
         }

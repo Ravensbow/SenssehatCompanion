@@ -19,58 +19,67 @@ namespace SenssehatCompanion.Views
         public LCDPage()
         {
             InitializeComponent();
-            InitializePanelLED();
+            ustawButton.Clicked += async (sender, e) => { await Ustaw_Clicked(sender, e); };
+        }
+        protected override async void OnAppearing()
+        {
+            await InitializePanelLED();
+            base.OnAppearing();
         }
 
-        private void InitializePanelLED()
+        private async Task InitializePanelLED()
         {
-            int[] sensLEDs = DependencyService.Get<PanelLED>().GetLEDsState().Result;
+            int[] sensLEDs = await DependencyService.Get<PanelLED>(DependencyFetchTarget.NewInstance).GetLEDsState();
 
-            for (int i = 0; i < 8; i++)
+            if (sensLEDs != null)
             {
-                var row = new FlexLayout() { Padding = new Thickness(10, 0, 10, 0) };
-                for (int j = 0; j < 8; j++)
+                for (int i = 0; i < 8; i++)
                 {
-                    string test = "#" + sensLEDs[i * 8 + j].ToString("X6");
-                    var but = new Button()
+                    var row = new FlexLayout() { Padding = new Thickness(10, 0, 10, 0) };
+                    for (int j = 0; j < 8; j++)
                     {
-                        BackgroundColor = Color.FromHex("#"+sensLEDs[i * 8 + j].ToString("X6")),
-                        Margin = new Thickness(5, 0, 0, 0)
-                    };
-                    but.Clicked += Button_Clicked;
-                    var beh = new LongPressBehavior() { Obiekt = but };
-                    beh.LongPressed += LongPressBehavior_LongPressed;
-                    but.Behaviors.Add(beh);
-                    panel.Add(Tuple.Create(i, j), but);
-                    row.Children.Add(but);
+                        string test = "#" + sensLEDs[i * 8 + j].ToString("X6");
+                        var but = new Button()
+                        {
+                            BackgroundColor = Color.FromHex("#" + sensLEDs[i * 8 + j].ToString("X6")),
+                            Margin = new Thickness(5, 0, 0, 0)
+                        };
+                        but.Clicked += Button_Clicked;
+                        var beh = new LongPressBehavior() { Obiekt = but };
+                        beh.LongPressed += LongPressBehavior_LongPressed;
+                        but.Behaviors.Add(beh);
+                        panel.Add(Tuple.Create(i, j), but);
+                        row.Children.Add(but);
+                    }
+                    MainStack.Children.Add(row);
                 }
-                MainStack.Children.Add(row);
             }
+
         }
 
 
         private void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+
             var entry = sender as Entry;
-            if (entry.CursorPosition!=0)
+            if (entry.CursorPosition != 0)
             {
                 if (entry.Text == null || entry.Text == "" || !int.TryParse(entry.Text, out _) || int.Parse(entry.Text) < 0)
                     entry.Text = "";
                 else if (int.Parse(entry.Text) > 255)
                     entry.Text = "255";
 
-                int r = (entryRed.Text != null&& int.TryParse(entryRed.Text, out _)) ? int.Parse(entryRed.Text) : 0;
-                int g = (entryGreen.Text != null&& int.TryParse(entryGreen.Text, out _)) ? int.Parse(entryGreen.Text) : 0;
-                int b = (entryBlue.Text != null &&int.TryParse(entryBlue.Text, out _)) ? int.Parse(entryBlue.Text) : 0;
-                colorInfo.Color = Color.FromRgb(r, g, b); 
+                int r = (entryRed.Text != null && int.TryParse(entryRed.Text, out _)) ? int.Parse(entryRed.Text) : 0;
+                int g = (entryGreen.Text != null && int.TryParse(entryGreen.Text, out _)) ? int.Parse(entryGreen.Text) : 0;
+                int b = (entryBlue.Text != null && int.TryParse(entryBlue.Text, out _)) ? int.Parse(entryBlue.Text) : 0;
+                colorInfo.Color = Color.FromRgb(r, g, b);
             }
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
             var but = sender as Button;
-            if (chosenLeds.Count==0|| chosenLeds.Last()!=but)
+            if (chosenLeds.Count == 0 || chosenLeds.Last() != but)
             {
                 clearChosen();
                 but.BorderWidth = 5;
@@ -79,7 +88,7 @@ namespace SenssehatCompanion.Views
                 colorInfo.Color = but.BackgroundColor;
                 entryRed.Text = (255 * colorInfo.Color.R).ToString();
                 entryGreen.Text = (255 * colorInfo.Color.G).ToString();
-                entryBlue.Text = (255 * colorInfo.Color.B).ToString(); 
+                entryBlue.Text = (255 * colorInfo.Color.B).ToString();
             }
         }
         private void clearChosen()
@@ -114,14 +123,14 @@ namespace SenssehatCompanion.Views
         private int[] buttonToArray()
         {
             int[] temp = new int[64];
-            for(int i =0;i<8; i++)
+            for (int i = 0; i < 8; i++)
             {
-                for (int j = 0; j< 8; j++)
+                for (int j = 0; j < 8; j++)
                 {
                     Button b;
                     if (panel.TryGetValue(Tuple.Create(i, j), out b))
                     {
-                        string s = b.BackgroundColor.ToHex().Replace("#","").Substring(2);
+                        string s = b.BackgroundColor.ToHex().Replace("#", "").Substring(2);
                         temp[i * 8 + j] = int.Parse(s, System.Globalization.NumberStyles.HexNumber);
                     }
                 }

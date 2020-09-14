@@ -11,12 +11,12 @@
              SelectedTabColor="#8953e8"
              Title="Przebiegi czasowe">
   <!--Pages can be added as references or inline-->
-    
-    <views:TemperaturaPage Title="Temperatura" />
-  
-    <views:Wilgotnosc Title="Wilgotność"/>
-    
-    <views:Cisnienie Title="Ciśnienie"/>
+
+    <views:TemperaturaPage Title="Temperatura"/>
+
+    <views:TemperaturaPage Title="Wilgotność"/>
+
+    <views:TemperaturaPage Title="Ciśnienie"/>
     
     <views:Katy Title="Kąty RPY"/>
     <!--<ContentPage Title="Ciśnienie" />

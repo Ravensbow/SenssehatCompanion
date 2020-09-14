@@ -23,6 +23,7 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         private System.Timers.Timer timer;
         private readonly Settings settings;
         private readonly IDataMeasure dataMeasure;
+       
 
         List<string> labels = new List<string>();
         LineDataSetXF dataSet5;
@@ -67,9 +68,7 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         {
             if (!ploting)
                 return;
-            //Temperatura temp =  dataMeasure.GetTemperatureAsync("C").Result;
-            //Temperatura temp =  dataMeasure.GetTemperaturaFake("C");
-            Temperatura temp = dataMeasure.GetTemperatureTCP("C");
+            MeasureValues temp =  dataMeasure.GetMeasureAsync().Result;
 
             time += 1;
             if (temp != null)
@@ -79,16 +78,28 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
             timer.Enabled = true;
         }
 
-        private void UpdateChart(Temperatura temp)
+        private void UpdateChart(MeasureValues temp)
         {
-            
+            float value = 0;
+            switch(Title)
+            {
+                case "Temperatura" :
+                    value = (float)temp.temperature;
+                    break;
+                case "Ciśnienie" :
+                    value = (float)temp.pressure;
+                    break;
+                case "Wilgotność":
+                    value = (float)temp.humidity;
+                    break;
+            }
             if (entries.Count > settings.NumSamples)
             {
                 entries.RemoveRange(0,entries.Count-settings.NumSamples);
             }
                 
-            entries.Add(new EntryChart(time, (float)temp.Value));
-            dataSet5 = new LineDataSetXF(entries, "Temperatura")
+            entries.Add(new EntryChart(time, value));
+            dataSet5 = new LineDataSetXF(entries, Title)
             {
                 Colors = new List<Color>{
                 Color.Green

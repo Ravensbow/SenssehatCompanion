@@ -6,7 +6,9 @@
              mc:Ignorable="d"
              xmlns:ultimateChart="clr-namespace:UltimateXF.Widget.Charts;assembly=UltimateXF"
              x:Class="SenssehatCompanion.Views.PrzebiegiCzasoweTabItems.TemperaturaPage"
-             BackgroundColor="White">
+             BackgroundColor="White"
+             xmlns:local ="clr-namespace:SenssehatCompanion.Views.PrzebiegiCzasoweTabItems"
+             >
     <ContentPage.Content>
         <StackLayout>
         <ultimateChart:SupportLineChartExtended  

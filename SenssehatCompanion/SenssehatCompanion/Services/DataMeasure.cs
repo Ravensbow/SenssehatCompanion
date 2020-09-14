@@ -2,10 +2,12 @@
 using SenssehatCompanion.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -27,14 +29,15 @@ namespace SenssehatCompanion.Services
 
         bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
 
-        public async Task<Temperatura> GetTemperatureAsync(string unit)
+        public async Task<MeasureValues> GetMeasureAsync()
         {
-            if (unit != null && IsConnected)
+            if (IsConnected)
             {
                 try
                 {
-                    var json = await client.GetStringAsync($"api/measurement/GetTemperature/{unit}");
-                    return await Task.Run(() => JsonConvert.DeserializeObject<Temperatura>(json));
+                    var json =  await client.GetStringAsync($"api/measure.php");
+                    var data = await Task.Run(() => JsonConvert.DeserializeObject<MeasureValues>(json));
+                    return data;
                 }
                 catch(WebException e)
                 {
@@ -44,9 +47,9 @@ namespace SenssehatCompanion.Services
                 {
                     DependencyService.Get<IMessage>().LongAlert(e.Message);
                 }
-                catch
+                catch(Exception e)
                 {
-                    DependencyService.Get<IMessage>().LongAlert("Nieznany wyjątek!");
+                    DependencyService.Get<IMessage>().LongAlert("Nieznany wyjątek!"+e.Message);
                 }
                 
             }
@@ -54,18 +57,19 @@ namespace SenssehatCompanion.Services
             return null;
         }
 
-        public Temperatura GetTemperaturaFake(string unit)
+        public MeasureValues GetMeasureFake()
         {
             Random random = new Random();
-            return new Temperatura() { Value = random.Next(10, 25), Unit = unit[0] };
+            return new MeasureValues() { temperature = random.Next(10, 25), pressure = random.Next(10, 25), humidity = random.Next(10, 25) };
         }
+        
 
-        public Temperatura GetTemperatureTCP(string unit)
-        {
-            string s = ConnectTCP("192.168.1.120", "t\r");
-            var Temp = new Temperatura() { Unit = 'C', Value = Convert.ToDouble(s, new NumberFormatInfo() { NumberDecimalSeparator = "." }) };
-            return Temp;
-        }
+        //public Temperatura GetTemperatureTCP(string unit)
+        //{
+        //    string s = ConnectTCP("192.168.1.120", "t\r");
+        //    var Temp = new Temperatura() { Unit = 'C', Value = Convert.ToDouble(s, new NumberFormatInfo() { NumberDecimalSeparator = "." }) };
+        //    return Temp;
+        //}
 
         static string ConnectTCP(String server, String message)
         {

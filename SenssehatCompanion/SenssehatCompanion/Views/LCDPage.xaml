@@ -110,7 +110,7 @@
                     <BoxView Color="Blue" HeightRequest="10"></BoxView>
                 </StackLayout>
             </FlexLayout>
-            <Button Clicked="Ustaw_Clicked" Text="Ustaw" VerticalOptions="EndAndExpand" BackgroundColor="#6200ee" TextColor="White" Margin="10,10,10,10"/>
+            <Button x:Name="ustawButton" Text="Ustaw" VerticalOptions="EndAndExpand" BackgroundColor="#6200ee" TextColor="White" Margin="10,10,10,10"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

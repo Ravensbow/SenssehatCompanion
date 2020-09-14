@@ -1,10 +1,12 @@
 ﻿using SenssehatCompanion.Models;
+using SenssehatCompanion.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -15,18 +17,48 @@ namespace SenssehatCompanion.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PomiaryPage : ContentPage
     {
-        public Temperatura Temp { get; set; }
+        private MeasureValues _temp;
+        private CancellationTokenSource source;
+        private CancellationToken cts;
+        public MeasureValues Temp { 
+            get {
+                return _temp;
+            } set    {
+                _temp = value;
+                OnPropertyChanged(nameof(MeasureValues));
+            } }
         public PomiaryPage()
         {
             InitializeComponent();
 
-
-            string s = Connect("192.168.1.120", "t\r");
+            // string s = Connect("192.168.1.120", "t\r");
             //s = s.Substring(0, s.Length - 1);
-            Temp = new Temperatura() { Unit = 'C', Value = Convert.ToDouble(s, new NumberFormatInfo() { NumberDecimalSeparator = "." }) };
-            BindingContext = Temp;
         }
-
+        protected override async void OnAppearing()
+        {
+            source = new CancellationTokenSource();
+            cts = source.Token;
+            await GetData();
+            
+            base.OnAppearing();
+        }
+        protected override void OnDisappearing()
+        {
+            source.Cancel();
+            base.OnDisappearing();
+        }
+        public async Task GetData()
+        {
+            while (true)
+            {
+                if (cts.IsCancellationRequested)
+                    return;
+                Temp = await DependencyService.Get<DataMeasure>(DependencyFetchTarget.NewInstance).GetMeasureAsync();
+                BindingContext = Temp;
+                await Task.Delay(1000); 
+            }
+        }
+        public void clik(object sender, EventArgs e) { Temp = new MeasureValues { temperature = 12 }; }
         static string Connect(String server, String message)
         {
             try
