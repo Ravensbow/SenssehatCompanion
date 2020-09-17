@@ -124,5 +124,36 @@ namespace SenssehatCompanion.Services
             }
             return "error";
         }
+
+        public async Task<Joystick> GetJoystickAsync()
+        {
+            if (IsConnected)
+            {
+                try
+                {
+                    var json = await client.GetByteArrayAsync($"api/joystick.php");
+                    string s = Encoding.UTF8.GetString(json);
+                    var data = await Task.Run(() => JsonConvert.DeserializeObject<Joystick>(s));
+                    return data;
+                }
+                catch (WebException e)
+                {
+                    DependencyService.Get<IMessage>().Clear();
+                    DependencyService.Get<IMessage>().LongAlert(e.Message);
+                }
+                catch (JsonException e)
+                {
+                    DependencyService.Get<IMessage>().Clear();
+                    DependencyService.Get<IMessage>().LongAlert(e.Message);
+                }
+                catch (Exception e)
+                {
+                    DependencyService.Get<IMessage>().Clear();
+                    DependencyService.Get<IMessage>().LongAlert("Nieznany wyjątek! " + e.Message);
+                }
+
+            }
+            return null;
+        }
     }
 }

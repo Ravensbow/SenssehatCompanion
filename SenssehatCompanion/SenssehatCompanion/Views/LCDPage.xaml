@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="SenssehatCompanion.Views.LCDPage"
+             Title="Panel LED"
              xmlns:behaviors="clr-namespace:App.Controls.Behaviors">
     <ContentPage.Content>
         <StackLayout>

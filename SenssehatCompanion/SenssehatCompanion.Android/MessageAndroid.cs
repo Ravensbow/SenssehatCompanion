@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -17,14 +17,23 @@ namespace SenssehatCompanion.Droid
     
     public class MessageAndroid : SenssehatCompanion.Services.IMessage
     {
+        private List<Toast> toasts = new List<Toast>();
         public void LongAlert(string message)
         {
-            Toast.MakeText(Application.Context, message, ToastLength.Long).Show();
+            var t = Toast.MakeText(Application.Context, message, ToastLength.Long);
+            toasts.Add(t);
+            t.Show();
         }
-
+        public void Clear()
+        {
+            toasts.ForEach(t => t.Cancel());
+            toasts.Clear();
+        }
         public void ShortAlert(string message)
         {
-            Toast.MakeText(Application.Context, message, ToastLength.Short).Show();
+            var t = Toast.MakeText(Application.Context, message, ToastLength.Short);
+            toasts.Add(t);
+            t.Show();
         }
     }
 }

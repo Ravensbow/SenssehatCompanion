@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ultimateChart="clr-namespace:UltimateXF.Widget.Charts;assembly=UltimateXF"
              mc:Ignorable="d"
              x:Class="SenssehatCompanion.Views.PrzebiegiCzasoweTabItems.Katy">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Vertical">
+            <BoxView x:Name="boxUp" WidthRequest="100" HeightRequest="100"></BoxView>
+            <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                <BoxView x:Name="boxLeft" WidthRequest="100" HeightRequest="100"></BoxView>
+                <BoxView x:Name="boxCenter" WidthRequest="100" HeightRequest="100"></BoxView>
+                <BoxView x:Name="boxRight" WidthRequest="100" HeightRequest="100"></BoxView>
+            </StackLayout>
+            <BoxView x:Name="boxDown" WidthRequest="100" HeightRequest="100"></BoxView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -14,6 +14,7 @@ using UltimateXF.Widget.Charts.Models.LineChart;
 using UltimateXF.Widget.Charts.Models.Formatters;
 using SenssehatCompanion.Services;
 using SenssehatCompanion.Models;
+using System.Threading;
 
 namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
 {
@@ -23,7 +24,9 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         private System.Timers.Timer timer;
         private readonly Settings settings;
         private readonly IDataMeasure dataMeasure;
-       
+        private Thread updateChartThread;
+        private CancellationTokenSource source;
+        private CancellationToken cts;
 
         List<string> labels = new List<string>();
         LineDataSetXF dataSet5;
@@ -40,29 +43,58 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
             setTimer();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
-            base.OnAppearing();
+            source = new CancellationTokenSource();
+            cts = source.Token;
+            
             chart.AxisLeft.DrawGridLines = true;
             chart.AxisLeft.DrawAxisLine = true;
             chart.AxisLeft.Enabled = true;
-            
             chart.MinimumHeightRequest = 400;
             chart.AutoScaleMinMaxEnabled = false;
             chart.AxisLeft.AxisMinimum = -35;
             chart.AxisLeft.AxisMaximum= 110;
             chart.AxisRight.Enabled = false;
-            
-
             chart.AxisRight.DrawAxisLine = true;
             chart.AxisRight.DrawGridLines = true;
             chart.AxisRight.Enabled = true;
-
             chart.XAxis.XAXISPosition = XAXISPosition.BOTTOM;
             chart.XAxis.DrawGridLines = true;
-            entries.Add(new EntryChart(0, 0));
+            await UpdateChartAsync();
+
+            base.OnAppearing();
+        }
+        protected override void OnDisappearing()
+        {
+            source.Cancel();
+            base.OnDisappearing();
         }
 
+        private async Task UpdateChartAsync()
+        {
+            updateChartThread = Thread.CurrentThread;
+            while(true)
+            {
+                if (cts.IsCancellationRequested)
+                    return;
+                if (!ploting)
+                {
+                    await Task.Delay(settings.Interval);
+                    continue;
+                }
+
+                var measureData = await dataMeasure.GetMeasureAsync();
+                if (measureData == null)
+                    continue;
+
+                var md = measureData.Find(v => v.Name == Title);
+                if(md!=null)
+                    UpdateChart(md);
+
+                await Task.Delay(settings.Interval);
+            }
+        }
 
         private void setTimer()
         {
@@ -77,7 +109,6 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
                 return;
             MeasureValues temp =  dataMeasure.GetMeasureAsync().Result.Find(mv=> mv.Name==Title);
 
-            time += 1;
             if (temp != null)
                 UpdateChart(temp);
             if (!ploting)
@@ -88,18 +119,7 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         private void UpdateChart(MeasureValues temp)
         {
             float value = 0;
-            //switch (Title)
-            //{
-            //    case "Temperatura":
-            //        value = (float)temp.Value;
-            //        break;
-            //    case "Ciśnienie":
-            //        value = (float)temp.Value;
-            //        break;
-            //    case "Wilgotność":
-            //        value = (float)temp.Vale;
-            //        break;
-            //}
+            time += 1;
             value = (float)temp.Value;
             if (entries.Count > settings.NumSamples)
             {
@@ -127,21 +147,31 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            if (ploting==true)
+            if(ploting)
             {
                 ploting = false;
-                timer.Stop();
-                timer.Dispose();
-                (sender as Button).Text="Start";
+                (sender as Button).Text = "Start";
             }
-            
             else
             {
                 ploting = true;
-                setTimer();
-                timer.Start();
                 (sender as Button).Text = "Stop";
-            } 
+            }
+            //if (ploting==true)
+            //{
+            //    ploting = false;
+            //    timer.Stop();
+            //    timer.Dispose();
+            //    (sender as Button).Text="Start";
+            //}
+            
+            //else
+            //{
+            //    ploting = true;
+            //    setTimer();
+            //    timer.Start();
+            //    (sender as Button).Text = "Stop";
+            //} 
         }
     }
 }

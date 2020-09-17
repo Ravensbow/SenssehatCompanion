@@ -8,5 +8,6 @@ namespace SenssehatCompanion.Services
     {
         void LongAlert(string message);
         void ShortAlert(string message);
+        void Clear();
     }
 }

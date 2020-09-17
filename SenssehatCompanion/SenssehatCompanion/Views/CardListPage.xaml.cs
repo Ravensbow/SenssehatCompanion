@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SenssehatCompanion.Views.PrzebiegiCzasoweTabItems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,7 @@ namespace SenssehatCompanion.Views
         }
         private async void OnJoystick(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SettingsPage());
+            await Navigation.PushAsync(new JoystickPage());
         }
         private async void OnLED(object sender, EventArgs e)
         {

@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="SenssehatCompanion.Views.PomiaryPage">
+             x:Class="SenssehatCompanion.Views.PomiaryPage"
+             Title="Dane pomiarowe">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout x:Name="MeasureStack" Padding="20,0,0,0" Margin="0,50,0,0"></StackLayout>
