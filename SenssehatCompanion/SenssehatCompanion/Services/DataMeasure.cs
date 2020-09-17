@@ -138,17 +138,17 @@ namespace SenssehatCompanion.Services
                 }
                 catch (WebException e)
                 {
-                    DependencyService.Get<IMessage>().Clear();
+                    //DependencyService.Get<IMessage>().Clear();
                     DependencyService.Get<IMessage>().LongAlert(e.Message);
                 }
                 catch (JsonException e)
                 {
-                    DependencyService.Get<IMessage>().Clear();
+                    //DependencyService.Get<IMessage>().Clear();
                     DependencyService.Get<IMessage>().LongAlert(e.Message);
                 }
                 catch (Exception e)
                 {
-                    DependencyService.Get<IMessage>().Clear();
+                    //DependencyService.Get<IMessage>().Clear();
                     DependencyService.Get<IMessage>().LongAlert("Nieznany wyjątek! " + e.Message);
                 }
 

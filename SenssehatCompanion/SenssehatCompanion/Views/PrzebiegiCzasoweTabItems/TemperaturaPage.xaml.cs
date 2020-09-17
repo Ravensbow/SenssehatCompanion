@@ -39,7 +39,7 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         {
             InitializeComponent();
             settings = DependencyService.Get<IConfig>().GetConfig().Result;
-            dataMeasure = DependencyService.Get<IDataMeasure>();
+            dataMeasure = DependencyService.Get<DataMeasure>(DependencyFetchTarget.NewInstance);
             setTimer();
         }
 

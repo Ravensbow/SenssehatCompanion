@@ -26,7 +26,7 @@ namespace SenssehatCompanion.Views
 
         public JoystickPage()
         {
-            dataMeasure = DependencyService.Get<IDataMeasure>();
+            dataMeasure = DependencyService.Get<DataMeasure>(DependencyFetchTarget.NewInstance);
             settings = DependencyService.Get<IConfig>().GetConfig().Result;
             InitializeComponent();
         }
@@ -58,13 +58,33 @@ namespace SenssehatCompanion.Views
                     continue;
 
                 Update(joyS);
-                await Task.Delay(100);
+                await Task.Delay(30);
             }
         }
 
         private void Update(Joystick js)
         {
-
+            if(actualState!=null&&js.direction!=actualState.direction)
+            {
+                switch (actualState.direction)
+                {
+                    case JoystickStatu.Down:
+                        boxDown.BackgroundColor = Color.Gray;
+                        break;
+                    case JoystickStatu.Up:
+                        boxUp.BackgroundColor = Color.Gray;
+                        break;
+                    case JoystickStatu.Right:
+                        boxRight.BackgroundColor = Color.Gray;
+                        break;
+                    case JoystickStatu.Left:
+                        boxLeft.BackgroundColor = Color.Gray;
+                        break;
+                    case JoystickStatu.Middle:
+                        boxCenter.BackgroundColor = Color.Gray;
+                        break;
+                }
+            }
             switch (js.direction)
             {
                 case JoystickStatu.Down:
@@ -138,6 +158,7 @@ namespace SenssehatCompanion.Views
                     }
                     break;
             }
+            actualState = js;
 
         }
     }

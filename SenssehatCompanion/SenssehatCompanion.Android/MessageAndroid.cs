@@ -20,9 +20,12 @@ namespace SenssehatCompanion.Droid
         private List<Toast> toasts = new List<Toast>();
         public void LongAlert(string message)
         {
+
             var t = Toast.MakeText(Application.Context, message, ToastLength.Long);
-            toasts.Add(t);
+            if(toasts.Count>0)toasts.Last().Cancel();
             t.Show();
+            toasts.Add(t);
+            
         }
         public void Clear()
         {
@@ -32,8 +35,9 @@ namespace SenssehatCompanion.Droid
         public void ShortAlert(string message)
         {
             var t = Toast.MakeText(Application.Context, message, ToastLength.Short);
-            toasts.Add(t);
+            if (toasts.Count > 0) toasts.Last().Cancel();
             t.Show();
+            toasts.Add(t);
         }
     }
 }
