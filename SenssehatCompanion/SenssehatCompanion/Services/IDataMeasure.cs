@@ -8,7 +8,7 @@ namespace SenssehatCompanion.Services
 {
     public interface IDataMeasure
     {
-        Task<MeasureValues> GetMeasureAsync();
+        Task<List<MeasureValues>> GetMeasureAsync();
         MeasureValues GetMeasureFake();
         //Temperatura GetTemperatureTCP(string unit);
     }

@@ -6,34 +6,8 @@
              mc:Ignorable="d"
              x:Class="SenssehatCompanion.Views.PomiaryPage">
     <ContentPage.Content>
-        <StackLayout Padding="20,0,0,0" Margin="0,50,0,0">
-            <StackLayout Orientation="Horizontal" >
-                <Label TextColor="Black" FontSize="Title" Text="Temperatura"
-                VerticalOptions="Start" 
-                HorizontalOptions="Start" />
-                <Label VerticalOptions="Center" Text="20.01.2020" HorizontalOptions="EndAndExpand"></Label>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label TextColor="Black" Margin ="0,0,20,0" VerticalOptions="CenterAndExpand" FontSize="30" Text="{Binding temperature, StringFormat='{0} °C'}" HorizontalOptions="EndAndExpand"></Label>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" >
-                <Label TextColor="Black" FontSize="Title" Text="Ciśnienie"
-                VerticalOptions="Start" 
-                HorizontalOptions="Start" />
-                <Label VerticalOptions="Center" Text="20.01.2020" HorizontalOptions="EndAndExpand"></Label>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label TextColor="Black" Margin ="0,0,20,0" VerticalOptions="CenterAndExpand" FontSize="30" Text="{Binding pressure, StringFormat='{0} hPa'}" HorizontalOptions="EndAndExpand"></Label>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" >
-                <Label TextColor="Black" FontSize="Title" Text="Wilgotność"
-                VerticalOptions="Start" 
-                HorizontalOptions="Start" />
-                <Label VerticalOptions="Center" Text="20.01.2020" HorizontalOptions="EndAndExpand"></Label>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label TextColor="Black" Margin ="0,0,20,0" VerticalOptions="CenterAndExpand" FontSize="30" Text="{Binding humidity, StringFormat='{0} %'}" HorizontalOptions="EndAndExpand"></Label>
-            </StackLayout>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout x:Name="MeasureStack" Padding="20,0,0,0" Margin="0,50,0,0"></StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

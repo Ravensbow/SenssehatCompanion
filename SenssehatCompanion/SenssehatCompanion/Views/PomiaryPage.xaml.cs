@@ -17,10 +17,12 @@ namespace SenssehatCompanion.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PomiaryPage : ContentPage
     {
-        private MeasureValues _temp;
+        private List<MeasureValues> _temp;
         private CancellationTokenSource source;
         private CancellationToken cts;
-        public MeasureValues Temp { 
+        private Dictionary<string, Label> value_labels = new Dictionary<string, Label>();
+        private Dictionary<string, Label> datelabel_labels = new Dictionary<string, Label>();
+        public List<MeasureValues> Temp { 
             get {
                 return _temp;
             } set    {
@@ -54,11 +56,65 @@ namespace SenssehatCompanion.Views
                 if (cts.IsCancellationRequested)
                     return;
                 Temp = await DependencyService.Get<DataMeasure>(DependencyFetchTarget.NewInstance).GetMeasureAsync();
-                BindingContext = Temp;
+                if (Temp == null)
+                    continue;
+                foreach(var v in Temp)
+                {
+                    if(!MeasureStack.Children.Any(c=>c.ClassId==v.Name))
+                    {
+                        MeasureStack.Children.Add(SetMeasureView(v));
+                    }
+                    else
+                    {
+                        if(value_labels.ContainsKey(v.Name))
+                            value_labels[v.Name].Text = v.Value.ToString() + " " + v.Unit;
+                        if (datelabel_labels.ContainsKey(v.Name))
+                            datelabel_labels[v.Name].Text = DateTime.Now.ToString("HH:mm:ss dd.MM.y");
+                    }
+
+                }
                 await Task.Delay(1000); 
             }
         }
-        public void clik(object sender, EventArgs e) { Temp = new MeasureValues { temperature = 12 }; }
+        private StackLayout SetMeasureView(MeasureValues v)
+        {
+            var S = new StackLayout() { ClassId=v.Name};
+
+            var s = new StackLayout()
+            {
+                Orientation = StackOrientation.Horizontal,
+                ClassId = v.Name
+            };
+            s.Children.Add(new Label()
+            {
+                Text = v.Name,
+                TextColor= Color.Black,
+                FontSize= 20
+            });
+            var dtlabel = new Label()
+            {
+                Text = DateTime.Now.ToString("HH:mm:ss dd.MM.y"),
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.EndAndExpand
+            };
+            s.Children.Add(dtlabel);
+            var vlabel = new Label()
+            {
+                Text = v.Value.ToString() + " " + v.Unit,
+                TextColor = Color.Black,
+                FontSize = 30,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                Margin = new Thickness(0, 0, 20, 0)
+            };
+            if(!value_labels.ContainsKey(v.Name))
+                value_labels.Add(v.Name, vlabel);
+            if (!datelabel_labels.ContainsKey(v.Name))
+                datelabel_labels.Add(v.Name, dtlabel);
+            S.Children.Add(s);
+            S.Children.Add(vlabel);
+
+            return S;
+        }
         static string Connect(String server, String message)
         {
             try

@@ -6,22 +6,10 @@ using System.Text;
 
 namespace SenssehatCompanion.Models
 {
-    public class MeasureValues : INotifyPropertyChanged
+    public class MeasureValues
     {
-        public double temperature { get; set; }
-        public double pressure { get; set; }
-        public double humidity { get; set; }
-        public Gyroscope gyroscope { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-    public class Gyroscope
-    {
-        public double Roll { get; set; }
-        public double Yaw { get; set; }
-        public double Pitch { get; set; }
+        public string Name { get; set; }
+        public string Unit { get; set; }
+        public double Value { get; set; }
     }
 }

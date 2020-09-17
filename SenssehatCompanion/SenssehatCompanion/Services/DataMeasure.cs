@@ -29,14 +29,15 @@ namespace SenssehatCompanion.Services
 
         bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
 
-        public async Task<MeasureValues> GetMeasureAsync()
+        public async Task<List<MeasureValues>> GetMeasureAsync()
         {
             if (IsConnected)
             {
                 try
                 {
-                    var json =  await client.GetStringAsync($"api/measure.php");
-                    var data = await Task.Run(() => JsonConvert.DeserializeObject<MeasureValues>(json));
+                    var json =  await client.GetByteArrayAsync($"api/measure.php");
+                    string s = Encoding.UTF8.GetString(json);
+                    var data = await Task.Run(() => JsonConvert.DeserializeObject<List<MeasureValues>>(s));
                     return data;
                 }
                 catch(WebException e)
@@ -60,7 +61,7 @@ namespace SenssehatCompanion.Services
         public MeasureValues GetMeasureFake()
         {
             Random random = new Random();
-            return new MeasureValues() { temperature = random.Next(10, 25), pressure = random.Next(10, 25), humidity = random.Next(10, 25) };
+            return new MeasureValues();
         }
         
 

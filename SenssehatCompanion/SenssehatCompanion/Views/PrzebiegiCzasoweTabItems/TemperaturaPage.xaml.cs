@@ -46,6 +46,13 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
             chart.AxisLeft.DrawGridLines = true;
             chart.AxisLeft.DrawAxisLine = true;
             chart.AxisLeft.Enabled = true;
+            
+            chart.MinimumHeightRequest = 400;
+            chart.AutoScaleMinMaxEnabled = false;
+            chart.AxisLeft.AxisMinimum = -35;
+            chart.AxisLeft.AxisMaximum= 110;
+            chart.AxisRight.Enabled = false;
+            
 
             chart.AxisRight.DrawAxisLine = true;
             chart.AxisRight.DrawGridLines = true;
@@ -53,7 +60,7 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
 
             chart.XAxis.XAXISPosition = XAXISPosition.BOTTOM;
             chart.XAxis.DrawGridLines = true;
-            
+            entries.Add(new EntryChart(0, 0));
         }
 
 
@@ -68,7 +75,7 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         {
             if (!ploting)
                 return;
-            MeasureValues temp =  dataMeasure.GetMeasureAsync().Result;
+            MeasureValues temp =  dataMeasure.GetMeasureAsync().Result.Find(mv=> mv.Name==Title);
 
             time += 1;
             if (temp != null)
@@ -81,18 +88,19 @@ namespace SenssehatCompanion.Views.PrzebiegiCzasoweTabItems
         private void UpdateChart(MeasureValues temp)
         {
             float value = 0;
-            switch(Title)
-            {
-                case "Temperatura" :
-                    value = (float)temp.temperature;
-                    break;
-                case "Ciśnienie" :
-                    value = (float)temp.pressure;
-                    break;
-                case "Wilgotność":
-                    value = (float)temp.humidity;
-                    break;
-            }
+            //switch (Title)
+            //{
+            //    case "Temperatura":
+            //        value = (float)temp.Value;
+            //        break;
+            //    case "Ciśnienie":
+            //        value = (float)temp.Value;
+            //        break;
+            //    case "Wilgotność":
+            //        value = (float)temp.Vale;
+            //        break;
+            //}
+            value = (float)temp.Value;
             if (entries.Count > settings.NumSamples)
             {
                 entries.RemoveRange(0,entries.Count-settings.NumSamples);
