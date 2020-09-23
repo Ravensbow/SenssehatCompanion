@@ -37,16 +37,30 @@ namespace SenssehatCompanion.Services
                 {
                     var json =  await client.GetByteArrayAsync($"api/measure.php");
                     string s = Encoding.UTF8.GetString(json);
-                    var data = await Task.Run(() => JsonConvert.DeserializeObject<List<MeasureValues>>(s));
-                    return data;
+
+                    if (s == null)
+                        throw new WebException("Brak odpowiedi z serwera.");
+                    else
+                    {
+                        var data = JsonConvert.DeserializeObject<List<MeasureValues>>(s);
+                        return data;
+                    }
                 }
                 catch(WebException e)
                 {
                     DependencyService.Get<IMessage>().LongAlert(e.Message);
                 }
-                catch(JsonException e)
+                catch (HttpRequestException e)
                 {
                     DependencyService.Get<IMessage>().LongAlert(e.Message);
+                }
+                catch (TaskCanceledException e)
+                {
+                    DependencyService.Get<IMessage>().LongAlert("Przekroczono limit czasu oczekiwania.");
+                }
+                catch (JsonException e)
+                {
+                    DependencyService.Get<IMessage>().LongAlert("Błędna odpowiedź serwera");
                 }
                 catch(Exception e)
                 {
