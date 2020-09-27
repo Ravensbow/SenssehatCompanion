@@ -11,6 +11,5 @@ namespace SenssehatCompanion.Services
         Task<List<MeasureValues>> GetMeasureAsync();
         Task<Joystick> GetJoystickAsync();
         MeasureValues GetMeasureFake();
-        //Temperatura GetTemperatureTCP(string unit);
     }
 }

@@ -10,15 +10,17 @@
              xmlns:local ="clr-namespace:SenssehatCompanion.Views.PrzebiegiCzasoweTabItems"
              >
     <ContentPage.Content>
-        <StackLayout>
-        <ultimateChart:SupportLineChartExtended  
+        <ScrollView>
+            <StackLayout>
+                <ultimateChart:SupportLineChartExtended  
 	       x:Name="chart"  
            HorizontalOptions="FillAndExpand"  
            VerticalOptions="FillAndExpand"  
            DrawBorders="false"  
            DoubleTapToZoomEnabled="false"
            Margin="0,80,0,80"/>
-            <Button Clicked="Button_Clicked" Text="Start" VerticalOptions="End" HorizontalOptions="Fill" BackgroundColor="#6200EE" TextColor="White" Margin="20,0,20,10"/>
-        </StackLayout>
+                <Button Clicked="Button_Clicked" Text="Start" VerticalOptions="End" HorizontalOptions="Fill" BackgroundColor="#6200EE" TextColor="White" Margin="20,0,20,10"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

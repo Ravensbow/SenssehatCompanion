@@ -10,16 +10,10 @@
              BarTextColor="#48306F"
              SelectedTabColor="#8953e8"
              Title="Przebiegi czasowe">
-  <!--Pages can be added as references or inline-->
 
     <views:TemperaturaPage Title="Temperatura"/>
 
     <views:TemperaturaPage Title="Wilgotność"/>
 
     <views:TemperaturaPage Title="Ciśnienie"/>
-    
-    <views:Katy Title="Kąty RPY"/>
-    <!--<ContentPage Title="Ciśnienie" />
-  <ContentPage Title="Wilgotność" />
-  <ContentPage Title="Kąty RPY" />-->
 </TabbedPage> 
